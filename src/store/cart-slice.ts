@@ -30,10 +30,46 @@ const cartSlice = createSlice({
                 return
             }
             state.cartItems = [...state.cartItems, action.payload]
-            state.totalAmount = state.totalAmount + action.payload.price
+            state.totalAmount = state.totalAmount + action.payload.price * action.payload.amount
         },
         removeItemFromCart(state, action: PayloadAction<number>) {
             state.cartItems = state.cartItems.filter(item => item.id !== action.payload)
+        },
+        removeOneItemFromCart(state, action: PayloadAction<number>) {
+
+            const existingCartItemIndex = state.cartItems.findIndex(item => item.id === action.payload)
+        
+            const existingItem = state.cartItems[existingCartItemIndex]
+    
+            const updatedTotalAmount = state.totalAmount - existingItem.price
+    
+            let updatedItems
+            if(existingItem.amount === 1){
+                updatedItems = state.cartItems.filter(item => item.id !== action.payload)
+            } else {
+                const updatedItem = {...existingItem, amount: existingItem.amount -1}
+                updatedItems = [...state.cartItems]
+                updatedItems[existingCartItemIndex] = updatedItem
+            }
+
+            state.cartItems = updatedItems
+            state.totalAmount = updatedTotalAmount
+
+        },
+        addOneItemToCart(state, action: PayloadAction<number>) {
+            const itemIndex = state.cartItems.findIndex(x => x.id === action.payload)
+            const item = state.cartItems[itemIndex]
+
+            const updatedItem = {...item, amount: item.amount + 1}
+
+            const totalAmount = state.totalAmount + item.price
+            
+            let updatedItemsArray = [...state.cartItems]
+            updatedItemsArray[itemIndex] = updatedItem
+
+
+            state.cartItems = updatedItemsArray
+            state.totalAmount = totalAmount
         }
     }
 })

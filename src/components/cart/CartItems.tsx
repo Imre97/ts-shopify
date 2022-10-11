@@ -22,6 +22,14 @@ const CartItems: React.FC<Props> = (props) => {
         dispatch(cartActions.removeItemFromCart(id))
     }
 
+    const removeItemFormCar = (id: number) => {
+        dispatch(cartActions.removeOneItemFromCart(id))
+    }
+
+    const addItemToCart = (id: number) => {
+        dispatch(cartActions.addOneItemToCart(id))
+    }
+
     return (
         <div style={{ border: '1px solid black', display: 'flex', padding: '1rem' }}>
             <div>
@@ -29,9 +37,11 @@ const CartItems: React.FC<Props> = (props) => {
             </div>
             <div style={{marginLeft: '1rem'}}>
                 <h3>{cartItem.title}</h3>
-                <p>${totalPrice}</p>
+                <p>${totalPrice.toFixed(2)}</p>
                 <div>{cartItem.amount} db</div>
                 <button onClick={() => handleClick(cartItem.id)}>Remove</button>
+                <button style={{marginLeft: '1rem'}} onClick={() => addItemToCart(cartItem.id)}>+</button>
+                <button style={{marginLeft: '1rem'}} onClick={() => removeItemFormCar(cartItem.id)}>-</button>
             </div>
         </div>
     )
