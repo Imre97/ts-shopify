@@ -40,8 +40,8 @@ const CartItems: React.FC<Props> = (props) => {
                 <p>${totalPrice.toFixed(2)}</p>
                 <div>{cartItem.amount} db</div>
                 <button onClick={() => handleClick(cartItem.id)}>Remove</button>
-                <button style={{marginLeft: '1rem'}} onClick={() => addItemToCart(cartItem.id)}>+</button>
                 <button style={{marginLeft: '1rem'}} onClick={() => removeItemFormCar(cartItem.id)}>-</button>
+                <button style={{marginLeft: '1rem'}} onClick={() => addItemToCart(cartItem.id)}>+</button>
             </div>
         </div>
     )
