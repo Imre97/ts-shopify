@@ -5,7 +5,8 @@ interface cartItem {
     id: number,
     price: number,
     title: string,
-    image: string
+    image: string,
+    amount: number
 }
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 const CartItems: React.FC<Props> = (props) => {
     const { cartItem } = props
     const dispatch = useDispatch()
+    const totalPrice = cartItem.price * cartItem.amount
 
     const handleClick = (id: number) => {
         dispatch(cartActions.removeItemFromCart(id))
@@ -25,9 +27,10 @@ const CartItems: React.FC<Props> = (props) => {
             <div>
                 <img style={{ width: '100px' }} src={cartItem.image} alt="" />
             </div>
-            <div>
+            <div style={{marginLeft: '1rem'}}>
                 <h3>{cartItem.title}</h3>
-                <p>{cartItem.price}</p>
+                <p>${totalPrice}</p>
+                <div>{cartItem.amount} db</div>
                 <button onClick={() => handleClick(cartItem.id)}>Remove</button>
             </div>
         </div>

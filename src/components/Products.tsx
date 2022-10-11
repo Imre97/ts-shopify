@@ -9,6 +9,7 @@ const Products = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cartItems)
     const [products, setProducts] = useState<ShopItem[]>([])
     const [loading, setLoading] = useState<boolean>(false)
+    const item = cartItems.reduce((acc, amount) => acc + amount.amount, 0)
 
     useEffect(() => {
         const controller = new AbortController()
@@ -40,7 +41,7 @@ const Products = () => {
                 <Link to='cart'>
                     cart
                 </Link>
-                <span style={{marginLeft: '1rem'}}>Number of items: {cartItems.length}</span>
+                <span style={{marginLeft: '1rem'}}>Number of items: {item}</span>
             </div>
             {loading && <p style={{textAlign: 'center'}}>Loading...</p>}
             <div style={{ display: 'flex', maxWidth: '1100px', flexFlow: 'row wrap', margin: '0 auto' }}>

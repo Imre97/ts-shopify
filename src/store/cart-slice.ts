@@ -5,7 +5,8 @@ interface cartItem {
     id: number,
     price: number,
     title: string,
-    image: string
+    image: string,
+    amount: number
 }
 
 interface Initialstate {

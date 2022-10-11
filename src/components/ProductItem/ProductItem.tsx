@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux"
 import { cartActions } from "../../store/cart-slice"
 
 import { ShopItem } from "../../modals/ProductModal"
+import ProductForm from "./ProductForm"
 
 interface Props {
     product: ShopItem
@@ -13,6 +14,10 @@ const ProductItem: React.FC<Props> = (props) => {
     const dispatch = useDispatch()
 
 
+    const addToCart = (amount: number) => {
+        dispatch(cartActions.addItemToCart({id: product.id, price: product.price, title: product.title, image: product.image, amount: amount}))
+    }
+
     return (
         <div style={{ border: '1px solid black', margin: '1rem', display: 'flex', alignItems: 'center', maxWidth: '500px', }}>
             <div>
@@ -22,7 +27,7 @@ const ProductItem: React.FC<Props> = (props) => {
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
                 <div>${product.price}</div>
-                <button onClick={() => dispatch(cartActions.addItemToCart({id: product.id, price: product.price, title: product.title, image: product.image}))} style={{ marginTop: '1rem', marginBottom: '1rem' }}>Add to cart</button>
+                <ProductForm addToCart={addToCart} />
             </div>
         </div>
     )
