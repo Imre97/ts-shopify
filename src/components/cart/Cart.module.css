@@ -1,0 +1,8 @@
+.cart-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}

@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
 import { ShopItem } from '../modals/ProductModal'
 import ProductItem from './ProductItem/ProductItem'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '../store'
+
+import classes from './Products.module.css'
+
 
 const Products = () => {
-    const cartItems = useSelector((state: RootState) => state.cart.cartItems)
     const [products, setProducts] = useState<ShopItem[]>([])
     const [loading, setLoading] = useState<boolean>(false)
-    const item = cartItems.reduce((acc, amount) => acc + amount.amount, 0)
 
     useEffect(() => {
         const controller = new AbortController()
@@ -27,7 +25,7 @@ const Products = () => {
             }
         }
 
-        
+
         fetchData()
 
         return () => {
@@ -36,19 +34,11 @@ const Products = () => {
     }, [])
 
     return (
-        <div>
-            <div>
-                <Link to='cart'>
-                    cart
-                </Link>
-                <span style={{marginLeft: '1rem'}}>Number of items: {item}</span>
-            </div>
-            {loading && <p style={{textAlign: 'center'}}>Loading...</p>}
-            <div style={{ display: 'flex', maxWidth: '1100px', flexFlow: 'row wrap', margin: '0 auto' }}>
-                {products.map(product => {
-                    return <ProductItem product={product} key={product.id} />
-                })}
-            </div>
+        <div className={classes['products-container']}>
+            {loading && <p style={{ textAlign: 'center' }}>Loading...</p>}
+            {products.map(product => {
+                return <ProductItem product={product} key={product.id} />
+            })}
         </div>
     )
 }

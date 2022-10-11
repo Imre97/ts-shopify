@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
 
+import classes from './ProductForm.module.css'
+
 interface Props {
     addToCart: (amount: number) => void
 }
@@ -27,8 +29,8 @@ const ProductForm: React.FC<Props> = (props) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="number" min={1} step='1' ref={inputRef} />
-            <button type="submit">add to cart</button>
+            <input type="number" min={1} step='1' ref={inputRef} className={classes['form-input']}/>
+            <button type="submit">add</button>
             {!formIsValid && <p style={{color: 'red', fontWeight: 'bold'}}>Please enter a valid amount</p>}
         </form>
     )
