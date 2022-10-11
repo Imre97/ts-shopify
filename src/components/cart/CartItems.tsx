@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { cartActions } from '../../store/cart-slice'
 
+import classes from './CartItem.module.css'
+
 interface cartItem {
     id: number,
     price: number,
@@ -31,17 +33,19 @@ const CartItems: React.FC<Props> = (props) => {
     }
 
     return (
-        <div style={{ border: '1px solid black', display: 'flex', padding: '1rem' }}>
+        <div className={classes['cart-item']}>
             <div>
                 <img style={{ width: '100px' }} src={cartItem.image} alt="" />
             </div>
-            <div style={{marginLeft: '1rem'}}>
+            <div style={{ marginLeft: '1rem' }}>
                 <h3>{cartItem.title}</h3>
-                <p>${totalPrice.toFixed(2)}</p>
-                <div>{cartItem.amount} db</div>
-                <button onClick={() => handleClick(cartItem.id)}>Remove</button>
-                <button style={{marginLeft: '1rem'}} onClick={() => removeItemFormCar(cartItem.id)}>-</button>
-                <button style={{marginLeft: '1rem'}} onClick={() => addItemToCart(cartItem.id)}>+</button>
+                <div className={classes['cart-item__amount']}>
+                    <p>${totalPrice.toFixed(2)}</p>
+                    <button onClick={() => removeItemFormCar(cartItem.id)}>-</button>
+                    <div>{cartItem.amount} db</div>
+                    <button onClick={() => addItemToCart(cartItem.id)}>+</button>
+                </div>
+                <button className={classes['cart-item__remove']} onClick={() => handleClick(cartItem.id)}>Remove</button>
             </div>
         </div>
     )
